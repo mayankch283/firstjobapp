@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
-    private CompanyService companyService;
+    private final CompanyService companyService;
 
     public CompanyController(CompanyService companyService) {
         this.companyService = companyService;
@@ -33,15 +33,15 @@ public class CompanyController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateCompany(@RequestBody Company company, @PathVariable Long id) {
         if (companyService.updateCompany(company, id)) {
-            return new ResponseEntity("Company updated successfully", HttpStatus.OK);
+            return new ResponseEntity<>("Company updated successfully", HttpStatus.OK);
         }
-        return new ResponseEntity("No company found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("No company found", HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
     public ResponseEntity<String> createCompany(@RequestBody Company company) {
         companyService.createCompany(company);
-        return new ResponseEntity("Company created successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>("Company created successfully", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -49,8 +49,8 @@ public class CompanyController {
         Company companyToBeDeleted = companyService.findCompany(id);
         if(companyToBeDeleted != null){
             companyService.deleteCompany(companyToBeDeleted);
-            return new ResponseEntity("Company deleted successfully", HttpStatus.OK);
+            return new ResponseEntity<>("Company deleted successfully", HttpStatus.OK);
         }
-        return new ResponseEntity("Company not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Company not found", HttpStatus.NOT_FOUND);
     }
 }
