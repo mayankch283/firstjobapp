@@ -2,6 +2,7 @@ package com.mayankch283.firstjobapp.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mayankch283.firstjobapp.job.Job;
+import com.mayankch283.firstjobapp.review.Review;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
@@ -19,9 +20,18 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<Job> jobs;
 
-    //private List<Review> reviews;
+    @OneToMany(mappedBy = "company")
+    private List<Review> reviews;
 
     public Company() {
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public long getId() {
