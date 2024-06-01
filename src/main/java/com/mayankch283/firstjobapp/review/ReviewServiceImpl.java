@@ -54,7 +54,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public boolean deleteReview(Long companyId, Long reviewId) {
-        return false;
+    public void deleteReview(Review reviewToDelete) {
+        reviewRepository.delete(reviewToDelete);
     }
 }

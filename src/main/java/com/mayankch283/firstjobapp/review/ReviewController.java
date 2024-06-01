@@ -47,11 +47,11 @@ public class ReviewController {
 
     @DeleteMapping("reviews/{reviewId}")
     public ResponseEntity<String> deleteReview(@PathVariable Long companyId, @PathVariable Long reviewId){
-
-        if(reviewService.getReview(companyId, reviewId)!=null){
-            reviewService.getReview(companyId, reviewId);
+        Review reviewToDelete = reviewService.getReview(companyId, reviewId);
+        if(reviewToDelete != null){
+            reviewService.deleteReview(reviewToDelete);
             return new ResponseEntity<>("Review deleted successfully", HttpStatus.OK);
         }
-        return new ResponseEntity<>("No review found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Review not found", HttpStatus.NOT_FOUND);
     }
 }
