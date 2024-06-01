@@ -35,7 +35,7 @@ public class ReviewServiceImpl implements ReviewService{
     public Review getReview(Long companyId, Long reviewId) {
         Company company = companyService.findCompany(companyId);
         if(company != null){
-            return reviewRepository.findById(reviewId).orElse(null);
+            return reviewRepository.findByCompanyIdAndId(companyId, reviewId).orElse(null);
         }
         return null;
     }
@@ -54,7 +54,12 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public void deleteReview(Review reviewToDelete) {
-        reviewRepository.delete(reviewToDelete);
+    public boolean deleteReview(Long companyId, Long reviewId) {
+        Review reviewToDelete = getReview(companyId, reviewId);
+        if (reviewToDelete != null) {
+            reviewRepository.delete(reviewToDelete);
+            return true;
+        }
+        return false;
     }
 }
